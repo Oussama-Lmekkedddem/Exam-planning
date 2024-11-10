@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layouts/layout}" xmlns:layout="http://www.w3.org/1999/xhtml">
+
+<head>
+
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+    <link rel="stylesheet" th:href="@{/css/global.css}">
+    <title>Examen</title>
+
+    <script>
+        function addTableRow() {
+            const examDate = document.getElementById('examDate').value;
+            const examTime = document.getElementById('examTime').value;
+
+            fetch(`/Examen/table-row?examDate=${examDate}&examTime=${examTime}`)
+                .then(response => response.text())
+                .then(html => {
+                    const tableBody = document.getElementById('table-body');
+                    const newRow = document.createElement('tr');
+                    newRow.innerHTML = html;
+
+                    // Replace placeholders in the new row HTML
+                    const rowCount = tableBody.children.length + 1;
+                    const updatedHtml = newRow.innerHTML
+                        .replace(/{{rowNumber}}/g, rowCount)
+                        .replace(/{{salleNumber}}/g, `salle-${rowCount}`)
+                        .replace(/{{administrateursNumber}}/g, `administrateurs-${rowCount}`);
+
+                    newRow.innerHTML = updatedHtml;
+                    tableBody.appendChild(newRow);
+                })
+                .catch(error => console.error('Error:', error));
+        }
+
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const addButton = document.getElementById('insertRow');
+            addButton.addEventListener('click', addTableRow);
+        });
+    </script>
+
+</head>
+
+<body>
+
+<h1 class="m-0 text-dark" layout:fragment="titulo_seccion"> Create Examens</h1>
+<ol class="breadcrumb float-sm-right" layout:fragment="breadcrumb">
+    <li class="breadcrumb-item">
+        <a href="#" th:href="@{/}">Home</a>
+    </li>
+    <li class="breadcrumb-item active">Examen / Create</li>
+</ol>
+
+<div layout:fragment="content">
+    <div class="container">
+        <div class="row">
+            <div class="card-body" style="margin-top: -20px; margin-bottom: -10px;">
+                <div class="btn-group" role="group" aria-label="Horizontal Button Group">
+                    <a th:href="@{/Examen}" type="button" class="btn btn-custom left-capsule text-white">
+                        <i class="fa fa-list" ></i> List
+                    </a>
+                    <div style="width: 4px;"></div>
+                    <a th:href="@{/Examen/create}" type="button" class="btn btn-custom right-capsule text-white">
+                        <i class="fa fa-cog" ></i> Add
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="row" style="border-radius: 5px; ">
+            <div class="container" id="Manage">
+                <div class="bg-white rounded p-3 mb-1">
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                            <div class="SaveCancel">
+                                <button type="button" class="btn btn-secondary rounded-sm-1" id="saveButton">
+                                    <span class="btn-label"><i class="fa fa-check"></i></span> Save
+                                </button>
+                                <a type="reset" class="btn btn-secondary rounded-sm-1" th:href="@{/Examen/create}">
+                                    <span class="btn-label"><i class="fa fa-times"></i></span> Cancel
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 text-right">
+                            <a type="button" class="btn btn-secondary rounded-sm-1 text-right" th:href="@{/Examen/create}">
+                                <span class="btn-label"><i class="fa fa-arrow-left"></i></span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <hr class="my-1" style="border-color: rgba(0,0,0,0.31);">
+                        </div>
+                    </div>
+
+                    <div th:if="${successMessage}" class="alert alert-success" role="alert">
+                        <p th:text="${successMessage}"></p>
+                    </div>
+
+                    <div class="d-none">
+                        <input type="date" id="examDate" th:value="${examForm.examDate}">
+                        <input type="time" id="examTime" th:value="${examForm.startTime}">
+                    </div>
+
+                    <form action="#" th:action="@{/Examen/save}" method="post" enctype="multipart/form-data" id="EmpInfForm" style="font-size: 15px;">
+                        <div class="d-none">
+                            <input type="text" name="elementId" th:value="${examForm.elementId}">
+                            <input type="text" name="startTime" th:value="${examForm.startTime}">
+                            <input type="text" name="expectedDuration" th:value="${examForm.expectedDuration}">
+                            <input type="text" name="coordinatorId" th:value="${examForm.coordinatorId}">
+                            <input type="text" name="contractType" th:value="${examForm.contractType}">
+                            <input type="text" name="actualDuration" th:value="${examForm.actualDuration}">
+                            <input type="Date" name="examDate" th:value="${examForm.examDate}">
+                            <input type="text" name="universityYear" th:value="${examForm.universityYear}">
+                            <input type="text" name="semester" th:value="${examForm.semester}">
+                            <input type="text" name="Typeelement" th:value="${examForm.typeelement}">
+                            <input type="text" name="rapport" th:value="${examForm.rapport}">
+                        </div>
+
+                        <table id="ticketTable" class="table">
+                            <thead>
+                            <tr>
+                                <th class="col-1">#</th>
+                                <th class="col-3">Salle</th>
+                                <th class="col-4">Absence controllers</th>
+                                <th class="col-4">Supervisors</th>
+                                <th class="col">
+                                    <a class="btn btn-secondary rounded-2 btn-block d-flex align-items-center justify-content-center" id="insertRow">
+                                        <i class="fas fa-plus-circle" style="font-size: 24px; color: white;"></i>
+                                    </a>
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody id="table-body">
+                            </tbody>
+                        </table>
+
+                        <button type="submit" class="btn btn-primary waves-effect waves-light" id="btn-submit" style="display: none;" >Save</button>
+                    </form>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<section layout:fragment="scripts">
+    <script th:src="@{/plugins/datatables/jquery.dataTables.min.js}"></script>
+    <script th:src="@{/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js}"></script>
+    <script th:src="@{/plugins/datatables-responsive/js/dataTables.responsive.min.js}"></script>
+    <script th:src="@{/plugins/datatables-responsive/js/responsive.bootstrap4.min.js}"></script>
+
+
+    <script th:src="@{/js/example.js}"></script>
+    <script th:src="@{/js/examen.js}"></script>
+
+
+
+</section>
+
+</body>
+
+</html>

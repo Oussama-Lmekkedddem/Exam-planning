@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layouts/layout}" xmlns:layout="http://www.w3.org/1999/xhtml">
+
+<head>
+
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+    <link rel="stylesheet" th:href="@{/css/global.css}">
+    <title>-</title>
+
+</head>
+
+<body>
+
+<h1 class="m-0 text-dark" layout:fragment="titulo_seccion"> Manage Enseignants</h1>
+<ol class="breadcrumb float-sm-right" layout:fragment="breadcrumb">
+    <li class="breadcrumb-item">
+        <a href="#" th:href="@{/}">Home</a>
+    </li>
+    <li class="breadcrumb-item active">Enseignant / Manage</li>
+</ol>
+
+<div layout:fragment="content">
+    <div class="container">
+        <div class="row mb-3">
+            <div class="btn-group" role="group" aria-label="Horizontal Button Group">
+                <a th:href="@{/Enseignant}" type="button" class="btn btn-custom left-capsule text-white">
+                    <i class="fa fa-list" ></i> List
+                </a>
+                <div style="width: 4px;"></div>
+                <a th:href="@{/Enseignant/create}" type="button" class="btn btn-custom right-capsule text-white">
+                    <i class="fa fa-cog" ></i> Add
+                </a>
+            </div>
+        </div>
+        <div class="row" style="border-radius: 5px; ">
+            <div class="container" id="Manage">
+                <div class="bg-white rounded p-3 mb-4">
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                            <div class="second-buttons">
+                                <button type="button" class="btn btn-secondary rounded-sm-1" id="saveButton">
+                                    <span class="btn-label"><i class="fa fa-check"></i></span> Load
+                                </button>
+                                <a type="button" class="btn btn-secondary rounded-sm-1" th:href="@{/Enseignant/view/tempslibre/{id}(id=${enseignant.id})}">
+                                    <span class="btn-label"><i class="fa fa-times"></i></span> Cancel
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <hr class="my-1" style="border-color: rgba(0,0,0,0.31);">
+                        </div>
+                    </div>
+
+                    <div class="container mt-4 p-4">
+                        <table class="table table-bordered calendar">
+                            <thead>
+                            <tr>
+                                <th></th>
+                                <th class="text-center">8:00 - 10:00</th>
+                                <th class="text-center">10:00 - 12:00</th>
+                                <th class="text-center">14:00 - 16:00</th>
+                                <th class="text-center">16:00 - 18:00</th>
+                            </tr>
+                            </thead>
+                            <tbody id="calendar-body">
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <table id="templibre-intervale" class="table table-striped table-bordered table-sm d-none" cellspacing="0" width="100%">
+                        <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Existe</th>
+                           <!-- <th>Reserver</th>-->
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="temps : ${tempsLibre}">
+                            <td th:text="${temps.id}"></td>
+                            <td th:text="${temps.intervalExiste ? 'Oui' : 'Non'}">
+                           <!-- <td th:text="${temps.intervalReserver ? 'Oui' : 'Non'}">-->
+                        </tr>
+                        </tbody>
+                    </table>
+                    <form th:action="@{'/Enseignant/update/tempslibre'}" enctype="multipart/form-data"
+                          class="d-none" method="post" id="EmpInfForm" style="font-size: 15px;">
+
+                        
+                        <div id="inputs-temp-libre-place"></div>
+
+                        <div class="col-sm-6 text-right">
+                            <button type="submit" class="btn btn-primary waves-effect waves-light d-none" id="update-btn-submit">Save</button>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<section layout:fragment="scripts">
+    <script th:src="@{/plugins/datatables/jquery.dataTables.min.js}"></script>
+    <script th:src="@{/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js}"></script>
+    <script th:src="@{/plugins/datatables-responsive/js/dataTables.responsive.min.js}"></script>
+    <script th:src="@{/plugins/datatables-responsive/js/responsive.bootstrap4.min.js}"></script>
+
+
+    <script th:src="@{/js/example.js}"></script>
+    <script th:src="@{/js/tempslibre.js}"></script>
+
+
+</section>
+
+</body>
+
+</html>

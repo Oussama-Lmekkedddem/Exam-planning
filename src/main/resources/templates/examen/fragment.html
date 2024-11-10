@@ -1,0 +1,44 @@
+<tr>
+  <th scope="row" data-row="{{rowNumber}}">{{rowNumber}}</th>
+  <td>
+    <select class="form-control rounded-0 " name="{{salleNumber}}" required>
+      <option th:each="salle : ${salles}" th:value="${salle.id}" th:text="${salle.numero}"></option>
+    </select>
+  </td>
+  <td>
+    <select class="form-control rounded-0" name="{{administrateursNumber}}"  required>
+      <option th:each="administrateur : ${administrateurs}"
+              th:value="${administrateur.id}" th:text="${administrateur.nom + ' ' + administrateur.prenom}">
+      </option>
+    </select>
+  </td>
+  <td style="position: relative;">
+    <div class="select-btn form-control rounded-0">
+      <div class="row">
+        <div class="col-10">
+          <span class="btn-text">Select Supervisors</span>
+        </div>
+        <div class="col-2 text-right">
+          <span class="arrow-dwn"><i class="fas fa-chevron-down"></i></span>
+        </div>
+      </div>
+    </div>
+    <ul class="list-items">
+      <li class="item" th:each="enseignant : ${enseignants}"
+          th:data-id="${enseignant.id}">
+        <span class="checkbox">
+          <i class="fa fa-check check-icon"></i>
+        </span>
+        <span class="item-text" th:text="${enseignant.nom  + ' ' + enseignant.prenom}"></span>
+      </li>
+    </ul>
+  </td>
+  <td class="d-flex align-items-center justify-content-center">
+    <a class="btn btn-secondary rounded-2 btn-block d-flex align-items-center justify-content-center deleteRow" style="width: 35px;">
+      <i class="fas fa-times-circle" style="font-size: 24px; color: white;"></i>
+    </a>
+  </td>
+</tr>
+
+
+

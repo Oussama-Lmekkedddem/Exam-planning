@@ -1,0 +1,98 @@
+
+.left-capsule {
+    background-color: #3184b7;
+    border-radius: 25px 0 0 25px;
+}
+.right-capsule {
+    background-color: #3184b7;
+    border-radius: 0 25px 25px 0;
+}
+
+
+
+.calendar th{
+    border: 1px solid #dee2e6;
+    text-align: center;
+    padding: 15px;
+}
+.calendar td{
+    border: 1px solid #dee2e6;
+    text-align: center;
+    padding: 1px;
+}
+.calendar th {
+    background-color: #f8f9fa;
+    font-weight: bold;
+}
+.time-slot {
+    height: 50px;
+}
+.full-div {
+    width: 100%;
+    height: 100%;
+    background-color: #f0f0f0;
+}
+
+
+
+
+
+
+
+
+
+.list-items{
+    position: absolute;
+    padding: 0;
+    background-color: #ffffff;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    display: none;
+    width: calc(93% - 2px);
+    max-height: 120px;
+    overflow-y: auto;
+    z-index: 999;
+}
+.select-btn.open ~ .list-items{
+    display: block;
+}
+.list-items .item{
+    display: flex;
+    align-items: center;
+    list-style: none;
+    height: 30px;
+    cursor: pointer;
+    transition: 0.3s;
+    padding: 0 15px;
+}
+.list-items .item:hover{
+    background-color: #e7edfe;
+}
+.item .item-text{
+    font-size: 16px;
+    font-weight: 400;
+    color: #333;
+}
+.item .checkbox{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 16px;
+    width: 16px;
+    border-radius: 4px;
+    margin-right: 12px;
+    border: 1.5px solid #c0c0c0;
+    transition: all 0.3s ease-in-out;
+}
+.item.checked .checkbox{
+    background-color: #4070f4;
+    border-color: #4070f4;
+}
+.checkbox .check-icon{
+    color: #fff;
+    font-size: 11px;
+    transform: scale(0);
+    transition: all 0.2s ease-in-out;
+}
+.item.checked .check-icon{
+    transform: scale(1);
+}

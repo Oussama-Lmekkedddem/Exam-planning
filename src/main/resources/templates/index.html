@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layouts/layout}" xmlns:layout="http://www.w3.org/1999/xhtml">
+
+<head>
+
+	<meta charset="utf-8"/>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+	<link rel="stylesheet" th:href="@{/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css}">
+	<link rel="stylesheet" th:href="@{/plugins/toastr/toastr.min.css}">
+	<link rel="stylesheet" th:href="@{/css/dashboard.css}">
+	<title>Dashboard </title>
+
+</head>
+
+<body>
+
+<h1 class="m-0 text-dark" layout:fragment="titulo_seccion">Dashboard</h1>
+<ol class="breadcrumb float-sm-right" layout:fragment="breadcrumb">
+	<li class="breadcrumb-item">
+		<a href="#" th:href="@{/}">Home</a>
+	</li>
+	<li class="breadcrumb-item active">Dashboard</li>
+</ol>
+
+<div layout:fragment="content">
+
+	<div class="container-fluid">
+
+		<div class="row">
+			<div class="col-xl-3 col-sm-6 col-12">
+				<div class="card">
+					<div class="card-content">
+						<div class="card-body">
+							<div class="media d-flex">
+								<div class="align-self-center">
+									<i class="fas fa-users" style="font-size: 35px; color: green;"></i>
+								</div>
+								<div class="media-body text-right">
+									<span>Number of </span>
+									<h3>0</h3>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-xl-3 col-sm-6 col-12">
+				<div class="card">
+					<div class="card-content">
+						<div class="card-body">
+							<div class="media d-flex">
+								<div class="align-self-center">
+									<i class="fas fa-door-open" style="font-size: 35px; color: blue;"></i>
+								</div>
+								<div class="media-body text-right">
+									<span>Number of </span>
+									<h3>0</h3>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-xl-3 col-sm-6 col-12">
+				<div class="card">
+					<div class="card-content">
+						<div class="card-body">
+							<div class="media d-flex">
+								<div class="align-self-center">
+									<i class="fas fa-chalkboard-teacher" style="font-size: 35px; color: red;"></i>
+								</div>
+								<div class="media-body text-right">
+									<span>Number of </span>
+									<h3>0</h3>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-xl-3 col-sm-6 col-12">
+				<div class="card">
+					<div class="card-content">
+						<div class="card-body">
+
+							<div class="media d-flex">
+								<div class="align-self-center">
+									<i class="fas fa-chart-area" style="font-size: 35px; color: orange;"></i>
+								</div>
+								<div class="media-body text-right">
+									<span>Number of</span>
+									<h3>0</h3>
+								</div>
+							</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+</div>
+
+<section layout:fragment="scripts">
+	<script th:src="@{/plugins/datatables/jquery.dataTables.min.js}"></script>
+	<script th:src="@{/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js}"></script>
+	<script th:src="@{/plugins/datatables-responsive/js/dataTables.responsive.min.js}"></script>
+	<script th:src="@{/plugins/datatables-responsive/js/responsive.bootstrap4.min.js}"></script>
+
+	<script th:src="@{/plugins/toastr/toastr.min.js}"></script>
+	<script th:src="@{/plugins/sweetalert2/sweetalert2.min.js}"></script>
+
+
+	<script th:src="@{/js/errores/errores.js}"></script>
+	<script th:src="@{/js/dashboard/dashboard.js}"></script>
+
+
+</section>
+
+</body>
+
+</html>
